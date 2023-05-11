@@ -23,6 +23,8 @@ for (let i = 0; i < 8; i++) {
 let startTime = null; 
 let intervalId = null;
 
+const piCells = Array.from(piTable.querySelectorAll("div"));
+
 function updateDigits() {
   const value = input.value.slice(0, pi.length);
   let correctDigits = 0;
@@ -30,8 +32,9 @@ function updateDigits() {
   for (let i = 0; i < value.length; i++) {
     if (value[i] === piDigits[i]) {
       correctDigits++;
+      piCells[i].style.color = "white";
     } else {
-      piTable.rows[Math.floor(i / 8)].cells[i % 8].style.color = "red";
+      piCells[i].style.color = "red";
     }
   }
 
@@ -42,6 +45,7 @@ function updateDigits() {
     intervalId = setInterval(updateTimer, 1);
   }
 }
+
 
 function updateTimer() {
   const elapsedTime = (Date.now() - startTime) / 1000;
