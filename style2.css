@@ -17,10 +17,7 @@
     font-size: 4rem;
     text-align: center;
   }
-  .red {
-    color: red;
-  }
-
+  
   body{
     background-color: #7B77D4;
     color: #FFFFFF;
@@ -51,6 +48,7 @@
     width: 4rem; 
     height: 4rem;
     font-size: 2rem;
+    color: #CCCCCC;
     display: flex;
     align-items: center;
     justify-content: center;
