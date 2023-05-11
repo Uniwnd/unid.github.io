@@ -15,11 +15,6 @@ for (let i = 0; i < 8; i++) {
   for (let j = 0; j < 8; j++) {
     const cell = document.createElement("div");
     cell.innerText = piDigits[index];
-    if ((i + j) % 2 === 0) {
-      cell.className = "even";
-    } else {
-      cell.className = "odd";
-    }
     piTable.appendChild(cell);
     index++;
   }
@@ -41,15 +36,12 @@ function updateDigits() {
   const value = input.value.slice(0, pi.length);
   let correctDigits = 0;
 
-  let color_index = 0;
-
   for (let i = 0; i < value.length; i++) {
-    if (value[i] === pi[i]) {
+    if (value[i] === piDigits[i]) {
       correctDigits++;
     } else {
       digits.children[i].classList.add("red");
     }
-    color_index++;
   }
 
   digits.innerHTML = `Score: ${correctDigits - 2}`;
@@ -58,9 +50,3 @@ function updateDigits() {
 input.addEventListener("input", updateDigits);
 
 const intervalId = setTimeout(updateTimer, 10);
-
-function goBack() {
-  window.history.back();
-}
-
-
