@@ -20,17 +20,8 @@ for (let i = 0; i < 8; i++) {
   }
 }
 
-function updateTimer() {
-  timer.innerHTML = timeLeft.toFixed(2);
-   timeLeft -= 0.01;
-      
-  if (timeLeft <= 0) {
-    input.disabled = true;
-    return;
-  }
-      
-  setTimeout(updateTimer, 10);
-}
+let startTime = null; 
+let intervalId = null;
 
 function updateDigits() {
   const value = input.value.slice(0, pi.length);
@@ -40,13 +31,31 @@ function updateDigits() {
     if (value[i] === piDigits[i]) {
       correctDigits++;
     } else {
-      digits.children[i].classList.add("red");
+      piTable.rows[Math.floor(i / 8)].cells[i % 8].style.color = "red";
     }
   }
 
   digits.innerHTML = `Score: ${correctDigits - 2}`;
+
+  if (correctDigits > 2 && startTime === null) {
+    startTime = Date.now();
+    intervalId = setInterval(updateTimer, 1);
+  }
 }
 
-input.addEventListener("input", updateDigits);
+function updateTimer() {
+  const elapsedTime = (Date.now() - startTime) / 1000;
+  timeLeft = 3.14 - elapsedTime; 
 
-const intervalId = setTimeout(updateTimer, 10);
+  if (timeLeft <= 0) { 
+    timeLeft = 0;
+    input.disabled = true;
+    clearTimeout(intervalId);
+  } else {
+    timer.innerHTML = timeLeft.toFixed(2).padStart(4, '0');
+    intervalId = setInterval(updateTimer, 1);
+  }
+}
+
+timer.innerHTML = "3.14";
+input.addEventListener("input", updateDigits);
