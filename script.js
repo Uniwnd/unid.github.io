@@ -1,14 +1,17 @@
-const pi = Math.PI.toFixed(54);
 const digits = document.getElementById("digits");
 const input = document.getElementById("input");
 const timer = document.getElementById("timer");
 
+const random = Math.floor(Math.random() * 4);
+
+const pi = "3.14159265358979323846264338327950288419716939937510582097494459";
+
 const $input = document.getElementById('input'); 
-$input.value = "3.";  
+$input.value = pi.slice(0, 2);
 let timeLeft = 3.14;
 
 const piTable = document.getElementById("pi-table");
-const piDigits = "3.141592653589793238462643383279502884197169399375105820974944592307816406286";
+const piDigits = pi;
 let index = 0;
 
 for (let i = 0; i < 8; i++) {
@@ -38,13 +41,17 @@ function updateDigits() {
     }
   }
 
-  digits.innerHTML = `Score: ${correctDigits - 2}`;
-
+  const score = correctDigits - 2;
+  digits.innerHTML = `Score: ${score}`;
+  
   if (correctDigits > 2 && startTime === null) {
     startTime = Date.now();
     intervalId = setInterval(updateTimer, 1);
   }
+
+  return score;
 }
+
 
 
 function updateTimer() {
